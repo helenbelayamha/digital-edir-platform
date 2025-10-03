@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Edir - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <h1>Digital Edir</h1>
+            </div>
+            <h2>Welcome to Our Community</h2>
+            <p>Join our digital platform to manage contributions, events, and community support in one place.</p>
+            
+            <div class="features">
+                <div class="feature">Easy Member Management</div>
+                <div class="feature">Digital Contributions</div>
+                <div class="feature">Event Announcements</div>
+                <div class="feature">Secure Payments</div>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <div class="form-container">
+                <div class="form-toggle">
+                    <button class="toggle-btn active" data-form="login">Login</button>
+                    <button class="toggle-btn" data-form="register">Register</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="login-form" class="form active">
+                    <h2 class="form-title">Login to Your Account</h2>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="Email Address" required>
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Password" required>
+                        <div class="error-message">Password is required</div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                        <a href="#" id="forgot-password-link" style="margin-left: auto;">Forgot Password?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn">Login</button>
+                    
+                    <div class="divider">Or continue with</div>
+                    
+                    <div class="social-login">
+                        <div class="social-btn google" data-provider="google">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="social-btn facebook" data-provider="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="social-btn twitter" data-provider="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="form-footer">Don't have an account? <a href="#" class="switch-form" data-form="register">Sign up</a></p>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="register-form" class="form">
+                    <h2 class="form-title">Create New Account</h2>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-name" placeholder="Full Name" required>
+                        <div class="error-message">Full name is required</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" placeholder="Email Address" required>
+                        <div class="error-message">Please enter a valid email address</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="register-phone" placeholder="Phone Number" required>
+                        <div class="error-message">Please enter a valid phone number</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" placeholder="Password" required>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-meter-fill"></div>
+                            </div>
+                            <div class="strength-text">Password strength: <span class="strength-label">None</span></div>
+                        </div>
+                        <div class="password-requirements">
+                            <div class="requirement unmet" data-requirement="length">
+                                <i class="fas fa-circle"></i> At least 8 characters
+                            </div>
+                            <div class="requirement unmet" data-requirement="uppercase">
+                                <i class="fas fa-circle"></i> One uppercase letter
+                            </div>
+                            <div class="requirement unmet" data-requirement="lowercase">
+                                <i class="fas fa-circle"></i> One lowercase letter
+                            </div>
+                            <div class="requirement unmet" data-requirement="number">
+                                <i class="fas fa-circle"></i> One number
+                            </div>
+                            <div class="requirement unmet" data-requirement="special">
+                                <i class="fas fa-circle"></i> One special character
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-confirm-password" placeholder="Confirm Password" required>
+                        <div class="error-message">Passwords do not match</div>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="register-btn" disabled>Create Account</button>
+                    
+                    <div class="divider">Or continue with</div>
+                    
+                    <div class="social-login">
+                        <div class="social-btn google" data-provider="google">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div class="social-btn facebook" data-provider="facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <div class="social-btn twitter" data-provider="twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                    
+                    <p class="form-footer">Already have an account? <a href="#" class="switch-form" data-form="login">Sign in</a></p>
+                </form>
+                
+                <!-- Forgot Password Form -->
+                <form id="forgot-password-form" class="form">
+                    <h2 class="form-title">Reset Your Password</h2>
+                    <p class="form-subtitle">Enter your email address and we'll send you a verification code to reset your password.</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="forgot-email" placeholder="Email Address" required>
+                        <div class="error-message">Please enter a valid email address</div>
+                        <div class="success-message">Verification code sent to your email!</div>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="send-code-btn">Send Verification Code</button>
+                    
+                    <div class="back-to-login">
+                        <a href="#" class="back-to-login-link">← Back to Login</a>
+                    </div>
+                </form>
+                
+                <!-- Verify Code Form -->
+                <form id="verify-code-form" class="form">
+                    <h2 class="form-title">Enter Verification Code</h2>
+                    <p class="form-subtitle">We've sent a 6-digit code to <span id="user-email" class="user-email">user@example.com</span></p>
+                    
+                    <div class="verification-code">
+                        <input type="text" class="code-input" maxlength="1" data-index="0">
+                        <input type="text" class="code-input" maxlength="1" data-index="1">
+                        <input type="text" class="code-input" maxlength="1" data-index="2">
+                        <input type="text" class="code-input" maxlength="1" data-index="3">
+                        <input type="text" class="code-input" maxlength="1" data-index="4">
+                        <input type="text" class="code-input" maxlength="1" data-index="5">
+                    </div>
+                    
+                    <div class="error-message" id="code-error">Invalid verification code</div>
+                    
+                    <div class="resend-code">
+                        <span class="countdown" id="countdown">Resend code in 60 seconds</span>
+                        <a href="#" id="resend-code-link" style="display: none;">Resend Code</a>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="verify-code-btn" disabled>Verify Code</button>
+                    
+                    <div class="back-to-login">
+                        <a href="#" class="back-to-login-link">← Back to Login</a>
+                    </div>
+                </form>
+                
+                <!-- Reset Password Form -->
+                <form id="reset-password-form" class="form">
+                    <h2 class="form-title">Create New Password</h2>
+                    <p class="form-subtitle">Your new password must be different from previously used passwords.</p>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="new-password" placeholder="New Password" required>
+                        <div class="password-strength">
+                            <div class="strength-meter">
+                                <div class="strength-meter-fill"></div>
+                            </div>
+                            <div class="strength-text">Password strength: <span class="strength-label">None</span></div>
+                        </div>
+                        <div class="password-requirements">
+                            <div class="requirement unmet" data-requirement="length">
+                                <i class="fas fa-circle"></i> At least 8 characters
+                            </div>
+                            <div class="requirement unmet" data-requirement="uppercase">
+                                <i class="fas fa-circle"></i> One uppercase letter
+                            </div>
+                            <div class="requirement unmet" data-requirement="lowercase">
+                                <i class="fas fa-circle"></i> One lowercase letter
+                            </div>
+                            <div class="requirement unmet" data-requirement="number">
+                                <i class="fas fa-circle"></i> One number
+                            </div>
+                            <div class="requirement unmet" data-requirement="special">
+                                <i class="fas fa-circle"></i> One special character
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="confirm-new-password" placeholder="Confirm New Password" required>
+                        <div class="error-message">Passwords do not match</div>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="reset-password-btn" disabled>Reset Password</button>
+                    
+                    <div class="back-to-login">
+                        <a href="#" class="back-to-login-link">← Back to Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success); margin-bottom: 15px;"></i>
+            <h3>Password Reset Successful!</h3>
+            <p>Your password has been reset successfully. You can now login with your new password.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn primary" id="go-to-login">Go to Login</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span class="toast-message">Success! Your account has been created.</span>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
+
+
+
+
+
+
