@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Edir - Community Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo" onclick="showPage('discovery')">
+            <i class="fas fa-hands-helping"></i>
+            <h1>Digital Edir</h1>
+        </div>
+        <div class="nav-menu">
+            <button class="nav-item" onclick="showPage('discovery')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile')">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+            <button class="nav-item" onclick="showPage('settings')">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </button>
+        </div>
+        <div class="user-menu">
+            <div class="user-avatar" onclick="toggleDropdown()"></div>
+            <div class="user-dropdown" id="userDropdown">
+                <button class="dropdown-item" onclick="showPage('profile')">
+                    <i class="fas fa-user-edit"></i>
+                    Edit Profile
+                </button>
+                <button class="dropdown-item" onclick="showPage('settings')">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+                <button class="dropdown-item" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Discovery Page -->
+    <div id="discovery-page" class="page-container active">
+        <div class="container">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2>Welcome to Digital Edir, <span id="userName">User</span>!</h2>
+                <p>Discover and join Edir groups in your community, or create your own group to get started.</p>
+            </div>
+
+            <!-- Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input type="text" class="search-input" id="groupSearch" placeholder="Search for Edir groups by name, location, or type...">
+                    <button class="search-btn" onclick="searchGroups()">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Discover Groups Section -->
+            <div class="groups-section">
+                <h2 class="section-title">
+                    <i class="fas fa-compass"></i>
+                    Discover Edir Groups
+                </h2>
+                
+                <div class="groups-grid" id="discoverGroupsGrid">
+                    <!-- Groups will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Create Group Section -->
+            <div class="groups-section">
+                <h2 class="section-title">
+                    <i class="fas fa-plus-circle"></i>
+                    Start Your Own Edir
+                </h2>
+                
+                <div class="groups-grid">
+                    <div class="group-card create-group-card" onclick="openCreateModal()">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Create New Edir</h3>
+                        <p>Start your own community group</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page-container">
+        <div class="dashboard-layout">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="logo">
+                        <i class="fas fa-hands-helping"></i>
+                        <h1>Digital Edir</h1>
+                    </div>
+                </div>
+                
+                <div class="groups-list" id="sidebarGroupsList">
+                    <!-- Groups will be populated by JavaScript -->
+                </div>
+                
+                <button class="create-group-sidebar-btn" onclick="openCreateModal()">
+                    <i class="fas fa-plus"></i>
+                    <span>Create Group</span>
+                </button>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Top Header -->
+                <div class="top-header">
+                    <div class="header-left">
+                        <h2 id="activeGroupName">Family Support Edir</h2>
+                        <p id="activeGroupDescription">Monthly contributions for family support and emergency assistance</p>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-action admin-only" onclick="openInviteModal()">
+                            <i class="fas fa-user-plus"></i>
+                            Invite Member
+                        </button>
+                        <button class="header-action admin-only" onclick="openNotifyModal()">
+                            <i class="fas fa-bell"></i>
+                            Notify Members
+                        </button>
+                        <div class="user-menu">
+                            <div class="user-avatar">AM</div>
+                            <span id="userRole">Admin</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Content -->
+                <div class="dashboard-content">
+                    <!-- Dashboard Tabs -->
+                    <div class="dashboard-tabs">
+                        <button class="tab-btn active" data-tab="overview">Overview</button>
+                        <button class="tab-btn" data-tab="members">Members</button>
+                        <button class="tab-btn" data-tab="contributions">Contributions</button>
+                        <button class="tab-btn" data-tab="events">Events</button>
+                        <button class="tab-btn admin-only" data-tab="requests">Requests</button>
+                    </div>
+                    
+                    <!-- Overview Tab -->
+                    <div id="overview-tab" class="tab-content active">
+                        <div class="overview-cards">
+                            <div class="overview-card">
+                                <div class="overview-icon" style="background: rgba(46, 139, 87, 0.2); color: var(--primary);">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="overview-info">
+                                    <h3 id="totalMembers">25</h3>
+                                    <p>Total Members</p>
+                                </div>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon" style="background: rgba(255, 215, 0, 0.2); color: var(--secondary);">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="overview-info">
+                                    <h3 id="collectedAmount">ETB 3,750</h3>
+                                    <p>Collected This Month</p>
+                                </div>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon" style="background: rgba(139, 0, 0, 0.2); color: var(--accent);">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <div class="overview-info">
+                                    <h3 id="pendingPayments">2</h3>
+                                    <p>Pending Payments</p>
+                                </div>
+                            </div>
+                            
+                            <div class="overview-card">
+                                <div class="overview-icon" style="background: rgba(52, 152, 219, 0.2); color: var(--info);">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="overview-info">
+                                    <h3 id="upcomingEvents">3</h3>
+                                    <p>Upcoming Events</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+                            <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: var(--shadow);">
+                                <h3 style="margin-bottom: 15px; color: var(--dark);">Recent Activity</h3>
+                                <div id="recentActivityList">
+                                    <!-- Activity will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; border-radius: 10px; padding: 20px; box-shadow: var(--shadow);">
+                                <h3 style="margin-bottom: 15px; color: var(--dark);">Upcoming Events</h3>
+                                <div id="upcomingEventsList">
+                                    <!-- Events will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Members Tab -->
+                    <div id="members-tab" class="tab-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--dark);">Group Members (<span id="membersCount">25</span>)</h3>
+                            <button class="header-action admin-only" onclick="openInviteModal()">
+                                <i class="fas fa-user-plus"></i>
+                                Add Member
+                            </button>
+                        </div>
+                        
+                        <div class="members-grid" id="membersGrid">
+                            <!-- Members will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Contributions Tab -->
+                    <div id="contributions-tab" class="tab-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--dark);">Monthly Contributions</h3>
+                            <div>
+                                <button class="header-action admin-only">
+                                    <i class="fas fa-download"></i>
+                                    Export
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="contributions-table">
+                            <div class="table-header">
+                                <div>Member</div>
+                                <div>Amount</div>
+                                <div>Date</div>
+                                <div>Status</div>
+                            </div>
+                            <div id="contributionsTable">
+                                <!-- Contributions will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Events Tab -->
+                    <div id="events-tab" class="tab-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--dark);">Upcoming Events</h3>
+                            <button class="header-action admin-only" onclick="openEventModal()">
+                                <i class="fas fa-calendar-plus"></i>
+                                Create Event
+                            </button>
+                        </div>
+                        
+                        <div class="events-list" id="eventsList">
+                            <!-- Events will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Requests Tab -->
+                    <div id="requests-tab" class="tab-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="color: var(--dark);">Join Requests (<span id="requestsCount">3</span>)</h3>
+                        </div>
+                        
+                        <div class="requests-list" id="requestsList">
+                            <!-- Requests will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Page -->
+    <div id="profile-page" class="page-container">
+        <div class="container">
+            <div class="profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar">AM</div>
+                    <div class="profile-info">
+                        <h2 id="profileUserName">Alemayehu Mekonnen</h2>
+                        <p id="profileUserEmail">alemayehu@example.com</p>
+                        <p id="profileUserPhone">+251 91 234 5678</p>
+                        <div class="profile-stats">
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileGroupsCount">3</div>
+                                <div class="profile-stat-label">Groups</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileAdminCount">2</div>
+                                <div class="profile-stat-label">Admin Roles</div>
+                            </div>
+                            <div class="profile-stat">
+                                <div class="profile-stat-value" id="profileMemberSince">2023</div>
+                                <div class="profile-stat-label">Member Since</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title">
+                    <i class="fas fa-user-edit"></i>
+                    Edit Profile
+                </h3>
+                
+                <div class="form-group">
+                    <label for="profileFullName">Full Name</label>
+                    <input type="text" id="profileFullName" class="form-control" placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileEmail">Email Address</label>
+                    <input type="email" id="profileEmail" class="form-control" placeholder="Enter your email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profilePhone">Phone Number</label>
+                    <input type="tel" id="profilePhone" class="form-control" placeholder="Enter your phone number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profileBio">Bio</label>
+                    <textarea id="profileBio" class="form-control" placeholder="Tell us about yourself" rows="4"></textarea>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="showPage('discovery')">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3 class="section-title">
+                    <i class="fas fa-users"></i>
+                    My Edir Groups
+                </h3>
+                <div class="groups-grid" id="profileGroupsGrid">
+                    <!-- Groups will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div id="settings-page" class="page-container">
+        <div class="container">
+            <div class="settings-section">
+                <h2 class="section-title">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </h2>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Dark Mode</h4>
+                        <p>Switch between light and dark theme</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Email Notifications</h4>
+                        <p>Receive email updates about your Edir groups</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="emailNotifications" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Push Notifications</h4>
+                        <p>Get browser notifications for important updates</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="pushNotifications" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>SMS Alerts</h4>
+                        <p>Receive text messages for urgent matters</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="smsAlerts">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Language</h4>
+                        <p>Change the interface language</p>
+                    </div>
+                    <select class="form-control" id="languageSelect">
+                        <option value="en">English</option>
+                        <option value="am">Amharic</option>
+                    </select>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Currency</h4>
+                        <p>Set your preferred currency</p>
+                    </div>
+                    <select class="form-control" id="currencySelect">
+                        <option value="ETB">Ethiopian Birr (ETB)</option>
+                        <option value="USD">US Dollar (USD)</option>
+                    </select>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Privacy</h4>
+                        <p>Control who can see your profile information</p>
+                    </div>
+                    <select class="form-control" id="privacySelect">
+                        <option value="public">Public</option>
+                        <option value="members">Edir Members Only</option>
+                        <option value="private">Private</option>
+                    </select>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="showPage('discovery')">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h2 class="section-title">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Account
+                </h2>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Logout</h4>
+                        <p>Sign out of your account</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+                
+                <div class="settings-item">
+                    <div class="settings-info">
+                        <h4>Delete Account</h4>
+                        <p>Permanently delete your account and all data</p>
+                    </div>
+                    <button class="btn" style="background: var(--error); color: white;" onclick="deleteAccount()">Delete Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Group Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Edir Group</h3>
+                <button class="close-modal" onclick="closeCreateModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="groupName">Edir Group Name</label>
+                    <input type="text" id="groupName" class="form-control" placeholder="Enter group name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="groupType">Edir Type</label>
+                    <select id="groupType" class="form-control">
+                        <option value="">Select Edir Type</option>
+                        <option value="family">Family Edir</option>
+                        <option value="neighborhood">Neighborhood Edir</option>
+                        <option value="professional">Professional Edir</option>
+                        <option value="religious">Religious Edir</option>
+                        <option value="cultural">Cultural Edir</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="groupDescription">Description</label>
+                    <textarea id="groupDescription" class="form-control" placeholder="Describe your Edir group" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="monthlyContribution">Monthly Contribution (ETB)</label>
+                    <input type="number" id="monthlyContribution" class="form-control" placeholder="Enter amount" value="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="groupPrivacy">Group Privacy</label>
+                    <select id="groupPrivacy" class="form-control">
+                        <option value="public">Public - Anyone can join</option>
+                        <option value="private">Private - Requires approval</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeCreateModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="createNewGroup()">Create Edir</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
